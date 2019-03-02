@@ -1,9 +1,14 @@
-Anagram Finder
-
+--- Anagram Finder ---
 Licenced under GNU GPLv3, take a look at COPYING.
 
 main.c is the less readable version that runs slightly faster.
 main_baseline.c, is like the name implies, the baseline implementation.
+
+- Building:
+Run 'make {stable | debug | baseline}', binary will be in the bin/ directory.
+	stable - builds the optimized version
+	debug - O0 and debugging symbols
+	baseline - builds baseline version
 
 Usage:
 	./anagram dictionary word
