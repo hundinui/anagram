@@ -1,0 +1,9 @@
+Anagram Finder
+
+Licenced under GNU GPLv3, take a look at COPYING.
+
+main.c is the less readable version that runs slightly faster.
+main_baseline.c, is like the name implies, the baseline implementation.
+
+Usage:
+	./anagram dictionary word
