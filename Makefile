@@ -5,23 +5,23 @@ CC=clang
 STRIP=strip
 OBJDUMP=objdump
 
-CFLAGS=-Wall -Wpedantic -Werror -std=c99
-CFLAGS_STABLE= $(CFLAGS) -O3 -DNDEBUG -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize -fomit-frame-pointer -fsave-optimization-record
+CFLAGS=-Wall -Wpedantic -std=c99 -march=native
+CFLAGS_STABLE= $(CFLAGS) -Werror -O3 -DNDEBUG -static
 CFLAGS_DEBUG= $(CFLAGS) -O0 -DDEBUG -pg -gfull -g3 -glldb
 LFLAGS=
 OBJDFLAGS=--disassemble --source
 
-.PHONY: clean genasm dirs all debug stable
+.PHONY: clean dirs all debug stable baseline
 
 all: stable
 
 debug: dirs clean
-	$(CC) $(CFLAGS_DEBUG) -o $(OUTDIR)/$(PROGNAME) main.c
+	$(CC) $(CFLAGS_DEBUG) -o $(OUTDIR)/$(PROGNAME) main.c $(LFLAGS)
 	$(OBJDUMP) $(OBJDFLAGS) $(OUTDIR)/$(PROGNAME) > $(PROGNAME).s
 	
 stable: dirs clean
-	$(CC) $(CFLAGS_STABLE) -o $(OUTDIR)/$(PROGNAME) main.c
-	$(STRIP) --strip-all $(OUTDIR)/$(PROGNAME)
+	$(CC) $(CFLAGS_STABLE) -o $(OUTDIR)/$(PROGNAME) main.c $(LFLAGS)
+	#$(STRIP) --strip-all $(OUTDIR)/$(PROGNAME)
 	$(OBJDUMP) $(OBJDFLAGS) $(OUTDIR)/$(PROGNAME) > $(PROGNAME).s
 	
 baseline: dirs clean
