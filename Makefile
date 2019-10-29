@@ -18,21 +18,15 @@ all: stable
 debug: dirs clean
 	$(CC) $(CFLAGS_DEBUG) -o $(OUTDIR)/$(PROGNAME) main.c $(LFLAGS)
 	$(OBJDUMP) $(OBJDFLAGS) $(OUTDIR)/$(PROGNAME) > $(PROGNAME).s
-	
+
 stable: dirs clean
 	$(CC) $(CFLAGS_STABLE) -o $(OUTDIR)/$(PROGNAME) main.c $(LFLAGS)
-	#$(STRIP) --strip-all $(OUTDIR)/$(PROGNAME)
 	$(OBJDUMP) $(OBJDFLAGS) $(OUTDIR)/$(PROGNAME) > $(PROGNAME).s
-	
-baseline: dirs clean
-	$(CC) $(CFLAGS_STABLE) -o $(OUTDIR)/$(PROGNAME)_baseline main_baseline.c
-	$(STRIP) --strip-all $(OUTDIR)/$(PROGNAME)_baseline
-	$(OBJDUMP) $(OBJDFLAGS) $(OUTDIR)/$(PROGNAME)_baseline > $(PROGNAME)_baseline.s
-	
+
 dirs:
 	mkdir -p $(OUTDIR)
-	
+
 clean:
 	rm -vfr *~ $(OUTDIR)/$(PROGNAME)
-	
-	
+
+
